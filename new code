@@ -1,0 +1,29 @@
+import requests
+import urllib
+
+def download_pixabay_images(query, num_images, api_key):
+    base_url = "https://pixabay.com/api/"
+    params = {
+        "key": api_key,
+        "q": query,
+        "image_type": "photo",
+        "per_page": num_images
+    }
+    
+    response = requests.get(base_url, params=params)
+    data = response.json()
+    
+    for i, image_data in enumerate(data["hits"]):
+        image_url = image_data["largeImageURL"]
+        image_response = requests.get(image_url)
+        with open(f"image_{i+1}.jpg", "wb") as file:
+            file.write(image_response.content)
+            print(f"Downloaded image {i+1}/{num_images}")
+    
+    print("Image downloading completed.")
+
+
+query = "cat"
+num_images = 10
+api_key = "41944678-39b6d49cec7fd580a769da914"
+download_pixabay_images(query, num_images, api_key)
