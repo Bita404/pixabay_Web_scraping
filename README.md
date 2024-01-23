@@ -12,3 +12,9 @@
 
 ## Usage 
 python pixabay_downloader.py
+
+
+## Outputs 
+#### a folder with stored images and a CSV file 
+
+
